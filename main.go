@@ -127,10 +127,10 @@ type Walking struct {
 // * 0.029 * вес_спортсмена_в_кг) * время_тренировки_в_часах * мин_в_ч)
 // Это переопределенный метод Calories() из Training.
 func (w Walking) Calories() float64 {
-	if w.Height == 0 && w.Training.Weight == 0 && w.Training.Duration.Hours() == 0 {
+	if w.Height == 0 {
 		return 0
 	}
-	return ((CaloriesWeightMultiplier*w.Training.Weight + (math.Pow(w.Training.meanSpeed()/KmHInMsec, 2.0)/(w.Height/100))*CaloriesSpeedHeightMultiplier*w.Training.Weight) * w.Training.Duration.Hours() * MinInHours)
+	return ((CaloriesWeightMultiplier*w.Training.Weight + (math.Pow((w.Training.meanSpeed()*KmHInMsec), 2.0)/(w.Height/CmInM))*CaloriesSpeedHeightMultiplier*w.Training.Weight) * w.Training.Duration.Hours() * MinInHours)
 }
 
 // TrainingInfo возвращает структуру InfoMessage с информацией о проведенной тренировке.
